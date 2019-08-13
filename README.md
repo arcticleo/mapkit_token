@@ -1,8 +1,6 @@
-# MapkitToken
+# MapKit Token
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/mapkit_token`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+MapKit JS uses JSON Web Tokens (JWTs) to authenticate map initializations and other API requests. This gem adds an MapKit JS JWT endpoint to Rails applications.
 
 ## Installation
 
@@ -22,7 +20,51 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Before you can use this gem, you need a Maps Identifer (i.e., Maps ID) and private key that is associated to a Maps ID. If you haven't yet done that, read more about how to do that here:
+
+[Creating a Maps Identifier and a Private Key](https://developer.apple.com/documentation/mapkitjs/creating_a_maps_identifier_and_a_private_key)
+
+Add your AuthKey to your application folder, and make sure you have these pieces of information:
+
+- Path to AuthKey
+- MapKit JS Key ID
+- Apple Developer Team ID
+
+Edit your application credentials:
+
+    $ EDITOR=vim rails credentials:edit
+
+In case you have different AuthKey files for your different environments, edit your environment credentials separately:
+
+    $ EDITOR=vim rails credentials:edit --environment development
+
+Add your credentials:
+
+```yaml
+mapkit:
+  auth_key_path: AuthKey_XXXXXXXXXX.p8
+  auth_key_id: XXXXXXXXXX
+  apple_team_id: XXXXXXXXXX
+```
+
+After reloading your application, it will have a new endpoint `/mapkit_token` that returns JWTs that are valid for 30 minutes. The application's hostname is added to the JWT payload to specify that the tokens only can used by the application itself. 
+
+Use the endpoint for the `authorizationCallback` function that MapKit JS calls whenever it detects that a new token is needed.
+
+```html
+<!DOCTYPE html>
+<html>
+...
+<div id="map"></div>
+<script src=“https://cdn.apple-mapkit.com/mk/5.0.x/mapkit.js"></script> <script>
+mapkit.init({ authorizationCallback: function(done) { fetch("/mapkit_token")
+.then(res => res.text())
+.then(token => done(token)) /* If successful, return your token to MapKit JS */ .catch(error => { /* Handle error */ });
+}});
+let map = new mapkit.Map("map", { center: new mapkit.Coordinate(37.32, -121.88) }); </script>
+...
+</html>
+```
 
 ## Development
 
