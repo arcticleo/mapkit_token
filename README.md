@@ -1,6 +1,6 @@
 # MapKit Token
 
-MapKit JS uses JSON Web Tokens (JWTs) to authenticate map initializations and other API requests. This gem adds an MapKit JS JWT endpoint to Rails applications.
+MapKit JS uses JSON Web Tokens (JWTs) to authenticate map initializations and other API requests. This gem adds an endpoint to a Rails applications to provide MapKit JS with such authentication JWTs.
 
 ## Installation
 
@@ -56,12 +56,15 @@ Use the endpoint for the `authorizationCallback` function that MapKit JS calls w
 <html>
 ...
 <div id="map"></div>
-<script src=“https://cdn.apple-mapkit.com/mk/5.0.x/mapkit.js"></script> <script>
+<script src=“https://cdn.apple-mapkit.com/mk/5.0.x/mapkit.js"></script>
+<script>
 mapkit.init({ authorizationCallback: function(done) { fetch("/mapkit_token")
-.then(res => res.text())
-.then(token => done(token)) /* If successful, return your token to MapKit JS */ .catch(error => { /* Handle error */ });
+    .then(res => res.text())
+    .then(token => done(token)) /* If successful, return your token to MapKit JS */ 
+    .catch(error => { /* Handle error */ });
 }});
-let map = new mapkit.Map("map", { center: new mapkit.Coordinate(37.32, -121.88) }); </script>
+let map = new mapkit.Map("map", { center: new mapkit.Coordinate(37.32, -121.88) }); 
+</script>
 ...
 </html>
 ```
