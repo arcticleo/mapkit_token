@@ -63,7 +63,7 @@ mapkit.init({ authorizationCallback: function(done) { fetch("/mapkit_token")
     .then(token => done(token)) /* If successful, return your token to MapKit JS */ 
     .catch(error => { /* Handle error */ });
 }});
-let map = new mapkit.Map("map", { center: new mapkit.Coordinate(37.32, -121.88) }); 
+let map = new mapkit.Map("map", { center: new mapkit.Coordinate(59.329, 18.068) }); 
 </script>
 ...
 </html>
