@@ -55,7 +55,7 @@ Use the endpoint for the `authorizationCallback` function that MapKit JS calls w
 <!DOCTYPE html>
 <html>
 ...
-<div id="map"></div>
+<div id="map" style="width: 800px; height: 600px;"></div>
 <script src="https://cdn.apple-mapkit.com/mk/5.0.x/mapkit.js"></script>
 <script>
 mapkit.init({ authorizationCallback: function(done) { fetch("/mapkit_token")
