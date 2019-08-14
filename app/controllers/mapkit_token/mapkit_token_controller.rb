@@ -22,8 +22,7 @@ module MapkitToken
     end
 
     def show
-#    render plain: Mapkit.token.generate(auth_key: auth_key, auth_key_id: auth_key_id, apple_team_id: apple_team_id, base_url: "https://new.bbs.dev.luxre.net")
-      render plain: Mapkit.token.generate(auth_key: auth_key, auth_key_id: auth_key_id, apple_team_id: apple_team_id)
+      render plain: Mapkit.token.generate(auth_key: auth_key, auth_key_id: auth_key_id, apple_team_id: apple_team_id, base_url: base_url)
     end
   end
 end
