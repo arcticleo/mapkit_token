@@ -47,7 +47,9 @@ mapkit:
   apple_team_id: XXXXXXXXXX
 ```
 
-After reloading your application, it will have a new endpoint `/mapkit_token` that returns JWTs that are valid for 30 minutes. The application's hostname is added to the JWT payload to specify that the tokens only can used by the application itself. 
+The gem provides legacy support for Rails secrets, so if your app uses Rails 4.1 through 5.1, you can simply store the same information in `/config/secrets.yml` and it will just work.
+
+After reloading your application, it will have a new endpoint `/mapkit_token` that returns JWTs that are valid for 30 minutes. The application's hostname is added to the JWT payload to specify that the tokens only can used by the application itself.
 
 Use the endpoint for the `authorizationCallback` function that MapKit JS calls whenever it detects that a new token is needed.
 
