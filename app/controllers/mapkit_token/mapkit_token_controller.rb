@@ -2,7 +2,11 @@ module MapkitToken
   class MapkitTokenController < ApplicationController
 
     def mapkit
-      Rails.application.credentials.mapkit
+      if Rails.application.respond_to?(:credentials)
+        Rails.application.credentials.mapkit
+      else
+        Rails.application.secrets.mapkit.symbolize_keys
+      end
     end
 
     def auth_key
